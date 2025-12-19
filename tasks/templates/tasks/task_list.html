@@ -1,0 +1,33 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <ul class="task-list">
+        {% for task in tasks %}
+            <li class="task-item {% if task.completed %}completed{% endif %}">
+                <div class="task-content">
+                    <a href="{% url 'task_toggle_complete' task.pk %}" class="task-toggle" title="Toggle Status">
+                        {% if task.completed %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-success"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        {% else %}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>
+                        {% endif %}
+                    </a>
+                    <div class="task-details">
+                        <h3>{{ task.title }}</h3>
+                        {% if task.description %}
+                            <p>{{ task.description }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <a href="{% url 'task_update' task.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="{% url 'task_delete' task.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li style="text-align: center; color: var(--text-muted); margin-top: 2rem;">
+                No tasks yet. Add one to get started!
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

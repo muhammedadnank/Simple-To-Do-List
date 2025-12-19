@@ -1,0 +1,16 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <div class="card" style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center; max-width: 500px; margin: 2rem auto;">
+        <h2 style="margin-bottom: 1rem; color: var(--danger-color);">Delete Task?</h2>
+        <p style="margin-bottom: 2rem;">Are you sure you want to delete "<strong>{{ task.title }}</strong>"? This action cannot be undone.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="actions" style="justify-content: center;">
+                <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                <a href="{% url 'task_list' %}" class="btn" style="background-color: #e2e8f0; color: var(--text-color);">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

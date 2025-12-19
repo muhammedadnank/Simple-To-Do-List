@@ -1,0 +1,27 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+    <div class="card" style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+        <h2 style="margin-bottom: 1.5rem;">{% if form.instance.pk %}Edit Task{% else %}Add New Task{% endif %}</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div style="color: red; font-size: 0.875rem; margin-top: 0.25rem;">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            
+            <div class="actions">
+                <button type="submit" class="btn btn-primary">Save Task</button>
+                <a href="{% url 'task_list' %}" style="color: var(--text-muted); text-decoration: none; align-self: center;">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
